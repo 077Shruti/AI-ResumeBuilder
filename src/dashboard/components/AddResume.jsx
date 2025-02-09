@@ -6,12 +6,14 @@ import {
     DialogDescription,
     DialogHeader,
     DialogTitle,
+    DialogTrigger,
   } from "@/components/ui/dialog"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { v4 as uuidv4 } from 'uuid';
 import GlobalApi from './../../../service/GlobalApi'
 import { useUser } from '@clerk/clerk-react'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 
 
@@ -21,6 +23,7 @@ function AddResume() {
     const [resumeTitle,setResumeTitle]=useState();
     const {user}=useUser();
     const [loading,setLoading]=useState(false);
+    const navigation=useNavigate();
     const onCreate=async()=>{
         setLoading(true)
         const uuid=uuidv4();
@@ -29,8 +32,7 @@ function AddResume() {
                 title:resumeTitle,
                 resumeId:uuid,
                 userEmail:user?.primaryEmailAddress?.emailAddress,
-                username:user?.fullName,
-                publishedAt: new Date().toISOString()
+                userName:user?.fullName
             }
         }
 
@@ -39,6 +41,7 @@ function AddResume() {
             if(resp)
             {
                 setLoading(false);
+                navigation('/dashboard/resume/'+resp.data.data.documentId+"/edit");
             }
         },(error)=>{
             setLoading(false);
@@ -64,10 +67,10 @@ function AddResume() {
             <DialogHeader>
             <DialogTitle>Create New Resume</DialogTitle>
             <DialogDescription>
-                <span>Add a title for your new resume</span>  
+                <p>Add a title for your new resume</p>
                 <Input className="my-2" 
-                    placeholder="Ex. Full Stack resume"
-                    onChange={(e) => setResumeTitle(e.target.value)}
+                placeholder="Ex.Full Stack resume"
+                onChange={(e)=>setResumeTitle(e.target.value)}
                 />
             </DialogDescription>
             <div className='flex justify-end gap-5'>
