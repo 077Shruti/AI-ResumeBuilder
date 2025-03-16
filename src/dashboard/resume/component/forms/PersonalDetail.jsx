@@ -5,7 +5,7 @@ import { LoaderCircle } from 'lucide-react';
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import GlobalApi from './../../../../../service/GlobalApi';
-// import { toast } from 'sonner';
+import { toast } from 'sonner'; 
 
 function PersonalDetail({enabledNext}) {
 
@@ -42,7 +42,7 @@ function PersonalDetail({enabledNext}) {
             console.log(resp);
             enabledNext(true);
             setLoading(false);
-            // toast("Details updated")
+            toast(" Details Updated Successfully")
         },(error)=>{
             setLoading(false);
         })
@@ -57,34 +57,34 @@ function PersonalDetail({enabledNext}) {
             <div className='grid grid-cols-2 mt-5 gap-3'>
                 <div>
                     <label className='text-sm'>First Name</label>
-                    <Input name="firstName" required onChange={handleInputChange}  />
+                    <Input name="firstName" defaultValue={resumeInfo?.firstName} required onChange={handleInputChange}  />
                 </div>
                 <div>
                     <label className='text-sm'>Last Name</label>
-                    <Input name="lastName" required onChange={handleInputChange} 
+                    <Input name="lastName" defaultValue={resumeInfo?.lastName} required onChange={handleInputChange} 
                      />
                 </div>
                 <div className='col-span-2'>
                     <label className='text-sm'>Job Title</label>
-                    <Input name="jobTitle" required 
+                    <Input name="jobTitle" defaultValue={resumeInfo?.jobTitle} required 
                     
                     onChange={handleInputChange}  />
                 </div>
                 <div className='col-span-2'>
                     <label className='text-sm'>Address</label>
-                    <Input name="address" required 
+                    <Input name="address" defaultValue={resumeInfo?.address} required 
                     
                     onChange={handleInputChange}  />
                 </div>
                 <div>
                     <label className='text-sm'>Phone</label>
-                    <Input name="phone" required 
+                    <Input name="phone" defaultValue={resumeInfo?.phone} required 
                     
                     onChange={handleInputChange}  />
                 </div>
                 <div>
                     <label className='text-sm'>Email</label>
-                    <Input name="email" required 
+                    <Input name="email" defaultValue={resumeInfo?.email} required 
                     
                     onChange={handleInputChange}  />
                 </div>
